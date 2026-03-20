@@ -1,0 +1,38 @@
+doctype html
+html
+  head
+    title= title
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel="stylesheet" href="/css/style.css")
+  body
+    h1
+      if petData
+        | Edit Pet
+      else
+        | Add New Pet
+    form(action="/update-pet" method="POST")
+      if petData
+        input(type="hidden" name="id" value=petData.id)
+      div
+        label(for="pet_name") Pet Name:
+        input(
+          type="text"
+          id="pet_name"
+          name="pet_name"
+          value=petData ? petData.properties.pet_name : ''
+          required
+        )
+      div
+        label(for="pet_type") Pet Type:
+        input(
+          type="text"
+          id="pet_type"
+          name="pet_type"
+          value=petData ? petData.properties.pet_type : ''
+        )
+      button(type="submit")
+        if petData
+          | Update Pet
+        else
+          | Create Pet
+      a(href="/") Cancel
